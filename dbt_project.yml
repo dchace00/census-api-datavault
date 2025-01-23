@@ -1,0 +1,21 @@
+name: 'census_api_vault'
+version: '1.0.0'
+profile: 'census_api_vault'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+clean-targets: ["target", "dbt_packages"]
+
+seeds:
+  census_api_vault:
+    _data_:
+      quote_columns: false
+      +post-hook:
+        - "CREATE INDEX idx__data__var_id ON {{ this }} (var_id)"
+        - "CREATE INDEX idx__data__geoid ON {{ this }} (geoid)"
+        - "CREATE INDEX idx__data__geoname ON {{ this }} (geoname)"
+        - "CREATE INDEX idx__data__product ON {{ this }} (product)"
+    var_labels:
+      quote_columns: false
+      +post-hook:
+        - "CREATE INDEX idx_var_labels_var_id ON {{ this }} (var_id)"

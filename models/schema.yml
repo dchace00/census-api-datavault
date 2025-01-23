@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: var_ref
+    description: "Temporary test model"
+    columns:
+      - name: test_column
+        description: "A temporary test column"
+        data_tests:
+          - not_null
