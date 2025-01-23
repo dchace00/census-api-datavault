@@ -2,9 +2,197 @@ version: 2
 
 models:
   - name: var_ref
-    description: "Temporary test model"
+    description: "Aggregates variable references from various sources and groups by var_id."
     columns:
-      - name: test_column
-        description: "A temporary test column"
+      - name: var_id
+        description: "Unique identifier for the variable."
         data_tests:
           - not_null
+          - unique
+      - name: var_group
+        description: "Variable group to which the variable ID belongs."
+      - name: var_label
+        description: "Label of the variable."
+      - name: concept
+        description: "Concept associated with the variable."
+      - name: predicate_type
+        description: "Predicate type of the variable."
+      - name: survey
+        description: "Survey from which the variable is sourced."
+      - name: products
+        description: "Array of products associated with the variable."
+      - name: years
+        description: "Array of years associated with the variable."
+      - name: geounits
+        description: "Array of geographic units associated with the variable."
+      - name: datasets
+        description: "Count of distinct datasets related to the variable."
+
+  - name: hub_year
+    description: "Table to store distinct years."
+    columns:
+      - name: year
+        description: "Unique year identifier."
+        data_tests:
+          - not_null
+          - unique
+
+  - name: hub_geo
+    description: "Table to store geographic information."
+    columns:
+      - name: geo_key
+        description: "Unique geographic key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: geoid
+        description: "Geographic identifier."
+      - name: geoname
+        description: "Geographic name."
+
+  - name: hub_var
+    description: "Table to store variable information."
+    columns:
+      - name: var_key
+        description: "Unique variable key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: var_id
+        description: "Variable identifier."
+      - name: product
+        description: "Product associated with the variable."
+
+  - name: link_year_geo_var
+    description: "Link table to associate year, geography, and variable."
+    columns:
+      - name: link_key
+        description: "Unique link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year identifier."
+      - name: geo_key
+        description: "Geographic key identifier."
+      - name: var_key
+        description: "Variable key identifier."
+
+  - name: sat_geo
+    description: "Satellite table for additional geographic information."
+    columns:
+      - name: geo_key
+        description: "Geographic key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: geounit
+        description: "Geographic unit information."
+
+  - name: sat_var
+    description: "Satellite table for additional variable information."
+    columns:
+      - name: var_key
+        description: "Variable key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: var_group
+        description: "Group to which the variable belongs."
+      - name: var_label
+        description: "Label of the variable."
+      - name: concept
+        description: "Concept associated with the variable."
+      - name: predicate_type
+        description: "Predicate type of the variable."
+      - name: survey
+        description: "Survey from which the variable is sourced."
+
+  - name: sat_year_geo_var
+    description: "Satellite table for year, geography, and variable information."
+    columns:
+      - name: link_key
+        description: "Link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: val
+        description: "Value associated with the record."
+      - name: timestamp
+        description: "Timestamp of the record."
+
+  - name: pop_pyr
+    description: "Table for population pyramid data."
+    columns:
+      - name: link_key
+        description: "Link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year identifier."
+      - name: geo_key
+        description: "Geographic key identifier."
+      - name: var_key
+        description: "Variable key identifier."
+      - name: var_label
+        description: "Label of the variable."
+      - name: count
+        description: "Population count."
+
+  - name: ratios
+    description: "Table for ratio data."
+    columns:
+      - name: link_key
+        description: "Link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year identifier."
+      - name: geo_key
+        description: "Geographic key identifier."
+      - name: var_key
+        description: "Variable key identifier."
+      - name: var_label
+        description: "Label of the variable."
+      - name: ratio
+        description: "Ratio value."
+
+  - name: central_measures
+    description: "Table for central measure data."
+    columns:
+      - name: link_key
+        description: "Link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year identifier."
+      - name: geo_key
+        description: "Geographic key identifier."
+      - name: var_key
+        description: "Variable key identifier."
+      - name: var_label
+        description: "Label of the variable."
+      - name: val
+        description: "Value of the central measure."
+
+  - name: total_pop
+    description: "Table for total population data."
+    columns:
+      - name: link_key
+        description: "Link key identifier."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year identifier."
+      - name: geo_key
+        description: "Geographic key identifier."
+      - name: var_key
+        description: "Variable key identifier."
+      - name: var_label
+        description: "Label of the variable."
+      - name: count
+        description: "Total population count."
